@@ -3,7 +3,7 @@
 const SUPABASE_URL = 'https://qqnrboeuwdtokcqsslwu.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxbnJib2V1d2R0b2tjcXNzbHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxOTcyMDYsImV4cCI6MjA5MDc3MzIwNn0.B44ttbGOqx2UfBNGyLZLrXklGlHcIPBQE3b9LUk-Cxw';
 
-let supabase = null;
+let supabaseClient = null;
 let currentFilter = 'all';
 
 // ─── Initialize Supabase ───
@@ -26,7 +26,7 @@ function initSupabase() {
   }
 
   try {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     statusDot.classList.add('connected');
     statusText.textContent = 'Connected to Supabase';
     return true;
@@ -40,8 +40,8 @@ function initSupabase() {
 
 // ─── CRUD Operations ───
 async function fetchTodos() {
-  if (!supabase) return [];
-  const { data, error } = await supabase
+  if (!supabaseClient) return [];
+  const { data, error } = await supabaseClient
     .from('todos')
     .select('*')
     .order('created_at', { ascending: true });
@@ -54,8 +54,8 @@ async function fetchTodos() {
 }
 
 async function addTodo(text) {
-  if (!supabase) return null;
-  const { data, error } = await supabase
+  if (!supabaseClient) return null;
+  const { data, error } = await supabaseClient
     .from('todos')
     .insert([{ text, is_completed: false }])
     .select()
@@ -69,8 +69,8 @@ async function addTodo(text) {
 }
 
 async function toggleTodo(id, isCompleted) {
-  if (!supabase) return;
-  const { error } = await supabase
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient
     .from('todos')
     .update({ is_completed: isCompleted })
     .eq('id', id);
@@ -79,8 +79,8 @@ async function toggleTodo(id, isCompleted) {
 }
 
 async function deleteTodo(id) {
-  if (!supabase) return;
-  const { error } = await supabase
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient
     .from('todos')
     .delete()
     .eq('id', id);
@@ -89,8 +89,8 @@ async function deleteTodo(id) {
 }
 
 async function clearCompletedTodos() {
-  if (!supabase) return;
-  const { error } = await supabase
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient
     .from('todos')
     .delete()
     .eq('is_completed', true);
