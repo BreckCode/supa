@@ -18,6 +18,13 @@ function initSupabase() {
     return false;
   }
 
+  if (typeof window.supabase === 'undefined' || typeof window.supabase.createClient !== 'function') {
+    statusDot.classList.add('error');
+    statusText.textContent = 'Supabase library failed to load';
+    console.error('window.supabase is not available. CDN script may have failed to load.');
+    return false;
+  }
+
   try {
     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     statusDot.classList.add('connected');
