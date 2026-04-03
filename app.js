@@ -1,7 +1,7 @@
 // ─── Supabase Configuration ───
 // Replace these with your Supabase project credentials
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://qqnrboeuwdtokcqsslwu.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxbnJib2V1d2R0b2tjcXNzbHd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxOTcyMDYsImV4cCI6MjA5MDc3MzIwNn0.B44ttbGOqx2UfBNGyLZLrXklGlHcIPBQE3b9LUk-Cxw';
 
 let supabase = null;
 let currentFilter = 'all';
